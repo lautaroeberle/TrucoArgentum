@@ -1,0 +1,192 @@
+/* ================= BASE ================= */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #0d0d0d;
+  color: white;
+  overflow-x: hidden;
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
+  z-index: -1;
+}
+
+.container {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ================= HERO ================= */
+
+.hero h1 {
+  font-size: 2rem; /* 🔥 más chico en mobile */
+  line-height: 1.3;
+  color: #00ff88;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px #00ff88;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #cccccc;
+}
+
+/* ================= BOTONES ================= */
+
+.cta-button {
+  display: inline-block;
+  background: #25D366;
+  color: black;
+  padding: 14px 22px;
+  font-size: clamp(0.95rem, 4vw, 1.2rem);
+  font-weight: bold;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0 0 20px #25D366;
+
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+.cta-button.big {
+  font-size: clamp(1rem, 5vw, 1.4rem);
+  padding: 16px 26px;
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 15px #25D366; }
+  50% { box-shadow: 0 0 35px #25D366; }
+  100% { box-shadow: 0 0 15px #25D366; }
+}
+
+/* ================= URGENCIA ================= */
+
+.urgency {
+  margin-top: 20px;
+  color: #ff4444;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* ================= HOW IT WORKS ================= */
+
+.how-it-works {
+  margin: 70px 0;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 1.6rem;
+  margin-bottom: 40px;
+  color: #9c9b9b;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column; /* 🔥 mobile vertical */
+  align-items: center;
+  gap: 40px;
+}
+
+.step {
+  max-width: 280px;
+}
+
+.number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #00ff88;
+  margin-bottom: 15px;
+}
+
+.step h3 {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.step p {
+  color: #f2f2f2;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.divider {
+  display: none; /* 🔥 oculto en mobile */
+}
+
+/* ================= FINAL ================= */
+
+.final h2 {
+  margin-bottom: 30px;
+  font-size: 1.4rem;
+  color: #1ba71b83;
+}
+
+/* ================= TABLET ================= */
+
+@media (min-width: 768px) {
+
+  .hero h1 {
+    font-size: 2.6rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .cta-button {
+    width: auto;
+  }
+
+  .steps {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .divider {
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #333;
+  }
+
+  .final h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ================= DESKTOP GRANDE ================= */
+
+@media (min-width: 1200px) {
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .cta-button {
+    font-size: 1.2rem;
+    padding: 20px 40px;
+  }
+
+}
