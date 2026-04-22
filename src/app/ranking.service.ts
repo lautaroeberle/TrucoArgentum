@@ -18,7 +18,7 @@ export class RankingService {
 
   /** SIEMPRE carga desde JSON */
   cargarDatos(): void {
-    this.http.get<Jugador[]>('../assets/ranking.json').pipe(
+    this.http.get<Jugador[]>('/assets/ranking.json').pipe(
       tap(data => {
         this.jugadoresSubject.next(this.ordenar(data));
       })
