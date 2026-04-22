@@ -1,0 +1,39 @@
+<div class="page-wrapper">
+
+  <header class="header">
+    <div class="suit-row">♠ ♥ ♦ ♣</div>
+    <h1 class="titulo">TRUCO ARGENTUM</h1>
+    <p class="subtitulo">— Ranking de Campeones —</p>
+  </header>
+
+  <main class="tabla-container">
+
+    <div class="tabla-header">
+      <span class="col-pos">POS</span>
+      <span class="col-nombre">JUGADOR</span>
+      <span class="col-pts">PUNTOS</span>
+    </div>
+
+    <div
+      *ngFor="let jugador of jugadores; let i = index"
+      class="tabla-fila"
+      [ngClass]="getRowClass(i + 1)"
+    >
+      <span class="col-pos medalla">{{ getMedalla(i + 1) }}</span>
+      <span class="col-nombre nombre-texto">{{ jugador.nombre }}</span>
+      <span class="col-pts puntaje-texto">{{ jugador.puntaje | number }}</span>
+    </div>
+
+    <div *ngIf="jugadores.length === 0" class="empty-state">
+      <span class="empty-icon">🃏</span>
+      <span>No hay jugadores en el ranking todavía.</span>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>Ranking actualizado en tiempo real · ¡Que gane el mejor!</p>
+    <div class="suit-row small">♠ ♥ ♦ ♣</div>
+  </footer>
+
+</div>

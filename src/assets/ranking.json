@@ -1,0 +1,7 @@
+[
+  { "id": "1", "nombre": "El Flaco Gómez", "puntaje": 1450 },
+  { "id": "2", "nombre": "La Negra Torres", "puntaje": 1320 },
+  { "id": "3", "nombre": "Pancho El Truquero", "puntaje": 1280 },
+  { "id": "4", "nombre": "Marta Fierro", "puntaje": 1100 },
+  { "id": "5", "nombre": "El Tano Braconi", "puntaje": 980 }
+]

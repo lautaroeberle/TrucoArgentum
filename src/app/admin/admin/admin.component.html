@@ -1,0 +1,161 @@
+<!-- ══════════════ LOGIN ══════════════ -->
+<div *ngIf="vista === 'login'" class="login-wrapper">
+  <div class="login-card">
+    <div class="login-icon">🂡</div>
+    <h2 class="login-titulo">Acceso Admin</h2>
+    <p class="login-sub">Panel privado · Truco Argentino</p>
+
+    <div class="field">
+      <label>Usuario</label>
+      <input
+        type="text"
+        [(ngModel)]="loginUsuario"
+        placeholder="admin"
+        (keyup.enter)="intentarLogin()"
+        autocomplete="username"
+      />
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <input
+        type="password"
+        [(ngModel)]="loginPassword"
+        placeholder="••••"
+        (keyup.enter)="intentarLogin()"
+        autocomplete="current-password"
+      />
+    </div>
+
+    <p *ngIf="loginError" class="error-msg">{{ loginError }}</p>
+
+    <button class="btn-login" (click)="intentarLogin()">Ingresar →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════ PANEL ADMIN ══════════════ -->
+<div *ngIf="vista === 'panel'" class="panel-wrapper">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="topbar-title">♠ Panel Admin — Truco Ranking</span>
+    <button class="btn-logout" (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
+
+  <!-- Toast de estado -->
+  <div class="toast" [class.visible]="mensajeGlobal">
+    {{ mensajeGlobal }}
+  </div>
+
+  <div class="panel-body">
+
+    <!-- ── Agregar jugador ── -->
+    <section class="card">
+      <h3 class="card-titulo">➕ Agregar jugador</h3>
+      <div class="form-row">
+        <div class="field">
+          <label>Nombre</label>
+          <input
+            type="text"
+            [(ngModel)]="nuevoNombre"
+            placeholder="Ej: El Tano García"
+          />
+        </div>
+        <div class="field field-sm">
+          <label>Puntaje inicial</label>
+          <input
+            type="number"
+            [(ngModel)]="nuevoPuntaje"
+            placeholder="0"
+            min="0"
+          />
+        </div>
+        <button class="btn-primary" (click)="agregarJugador()">Agregar</button>
+      </div>
+      <p *ngIf="errorNuevo" class="error-msg">{{ errorNuevo }}</p>
+      <p *ngIf="exitoNuevo" class="ok-msg">{{ exitoNuevo }}</p>
+    </section>
+
+    <!-- ── Tabla de jugadores ── -->
+    <section class="card">
+      <div class="card-header-row">
+        <h3 class="card-titulo">📋 Jugadores ({{ jugadores.length }})</h3>
+        <button class="btn-reset" (click)="resetear()">↺ Resetear al JSON</button>
+      </div>
+
+      <div *ngIf="jugadores.length === 0" class="empty">
+        No hay jugadores registrados.
+      </div>
+
+      <div class="tabla-admin" *ngIf="jugadores.length > 0">
+
+        <!-- Header -->
+        <div class="fila-admin fila-header">
+          <span>POS</span>
+          <span>NOMBRE</span>
+          <span>PUNTOS</span>
+          <span>AJUSTE RÁPIDO</span>
+          <span>ACCIONES</span>
+        </div>
+
+        <!-- Filas -->
+        <div
+          *ngFor="let j of jugadores; let i = index"
+          class="fila-admin"
+          [class.editando]="editandoId === j.id"
+        >
+          <!-- Posición -->
+          <span class="pos-badge">{{ i + 1 }}°</span>
+
+          <!-- Nombre / Edit nombre -->
+          <span *ngIf="editandoId !== j.id" class="nombre-cell">{{ j.nombre }}</span>
+          <input
+            *ngIf="editandoId === j.id"
+            type="text"
+            class="input-inline"
+            [(ngModel)]="editNombre"
+          />
+
+          <!-- Puntaje / Edit puntaje -->
+          <span *ngIf="editandoId !== j.id" class="pts-cell">{{ j.puntaje | number }}</span>
+          <input
+            *ngIf="editandoId === j.id"
+            type="number"
+            class="input-inline input-pts"
+            [(ngModel)]="editPuntaje"
+          />
+
+          <!-- Delta rápido -->
+          <div class="delta-cell" *ngIf="editandoId !== j.id">
+            <input
+              type="number"
+              class="input-delta"
+              [value]="getDelta(j.id)"
+              (input)="setDelta(j.id, +$any($event.target).value)"
+              min="1"
+              placeholder="Δ"
+            />
+            <button class="btn-suma" (click)="sumar(j.id)" title="Sumar puntos">+</button>
+            <button class="btn-resta" (click)="restar(j.id)" title="Restar puntos">−</button>
+          </div>
+          <div class="delta-cell" *ngIf="editandoId === j.id">—</div>
+
+          <!-- Acciones -->
+          <div class="acciones-cell">
+            <ng-container *ngIf="editandoId !== j.id">
+              <button class="btn-edit" (click)="iniciarEdicion(j)" title="Editar">✏️</button>
+              <button class="btn-del" (click)="eliminar(j)" title="Eliminar">🗑️</button>
+            </ng-container>
+            <ng-container *ngIf="editandoId === j.id">
+              <button class="btn-save" (click)="guardarEdicion()" title="Guardar">✔</button>
+              <button class="btn-cancel" (click)="cancelarEdicion()" title="Cancelar">✕</button>
+            </ng-container>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</div>

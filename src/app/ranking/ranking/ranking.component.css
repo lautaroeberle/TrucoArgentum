@@ -1,0 +1,227 @@
+/* ── Variables ─────────────────────────────────────── */
+:host {
+  --verde-paño:   #1a4731;
+  --verde-claro:  #22603f;
+  --verde-oscuro: #0f2a1e;
+  --dorado:       #c9a84c;
+  --dorado-claro: #e8c96d;
+  --dorado-hover: #f0d880;
+  --rojo:         #c0392b;
+  --crema:        #f5edd6;
+  --crema-oscuro: #e8d9b8;
+  --texto-oscuro: #1a0f00;
+  --sombra:       0 8px 40px rgba(0,0,0,0.55);
+  --sombra-dorado: 0 0 0 1px rgba(201,168,76,0.3);
+}
+
+/* ── Layout ────────────────────────────────────────── */
+.page-wrapper {
+  min-height: 100vh;
+  background-color: var(--verde-oscuro);
+  background-image:
+    radial-gradient(ellipse at 15% 15%, rgba(201,168,76,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(192,57,43,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(34,96,63,0.4) 0%, transparent 80%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(255,255,255,0.013) 20px,
+      rgba(255,255,255,0.013) 21px
+    );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem 3rem;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  animation: fadeDown 0.7s ease both;
+}
+
+.suit-row {
+  font-size: 1.6rem;
+  letter-spacing: 1rem;
+  color: var(--dorado);
+  margin-bottom: 0.6rem;
+  text-shadow: 0 0 14px rgba(201,168,76,0.55);
+}
+
+.suit-row.small {
+  font-size: 1rem;
+  letter-spacing: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.titulo {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.18em;
+  color: var(--dorado-claro);
+  text-shadow:
+    2px 2px 0 var(--verde-oscuro),
+    0 0 30px rgba(201,168,76,0.45);
+  margin: 0;
+  line-height: 1;
+}
+
+.subtitulo {
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  color: var(--crema-oscuro);
+  opacity: 0.75;
+  margin: 0.5rem 0 0;
+  font-style: italic;
+}
+
+/* ── Tabla ─────────────────────────────────────────── */
+.tabla-container {
+  width: 100%;
+  max-width: 680px;
+  background: var(--verde-paño);
+  border-radius: 14px;
+  border: 2px solid var(--dorado);
+  box-shadow:
+    var(--sombra),
+    inset 0 0 50px rgba(0,0,0,0.3),
+    0 0 0 4px rgba(10,30,18,0.8),
+    0 0 0 5px rgba(201,168,76,0.15);
+  overflow: hidden;
+  animation: fadeUp 0.7s ease 0.15s both;
+}
+
+.tabla-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  padding: 1rem 1.5rem;
+  background: var(--verde-oscuro);
+  border-bottom: 2px solid var(--dorado);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--dorado);
+  font-weight: 700;
+  font-family: 'Georgia', serif;
+  text-transform: uppercase;
+}
+
+.tabla-fila {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.13);
+  align-items: center;
+  transition: background 0.2s ease, transform 0.18s ease;
+  cursor: default;
+}
+
+.tabla-fila:last-child {
+  border-bottom: none;
+}
+
+.tabla-fila:hover {
+  background: rgba(201,168,76,0.08) !important;
+  transform: translateX(4px);
+}
+
+/* ── Row variants ──────────────────────────────────── */
+.row-gold {
+  background: linear-gradient(90deg, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0.04) 60%, transparent 100%);
+}
+
+.row-silver {
+  background: linear-gradient(90deg, rgba(180,185,200,0.12) 0%, rgba(180,185,200,0.03) 60%, transparent 100%);
+}
+
+.row-bronze {
+  background: linear-gradient(90deg, rgba(180,110,60,0.12) 0%, rgba(180,110,60,0.03) 60%, transparent 100%);
+}
+
+.row-normal {
+  background: transparent;
+}
+
+/* ── Cols ──────────────────────────────────────────── */
+.col-pos    { text-align: center; }
+.col-nombre { text-align: left; }
+.col-pts    { text-align: right; }
+
+.medalla {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.nombre-texto {
+  font-size: 1.05rem;
+  color: var(--crema);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.puntaje-texto {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dorado-claro);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Empty state ───────────────────────────────────── */
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: var(--crema-oscuro);
+  opacity: 0.6;
+  font-style: italic;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+/* ── Footer ────────────────────────────────────────── */
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--crema-oscuro);
+  opacity: 0.45;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  font-style: italic;
+  animation: fadeUp 0.7s ease 0.3s both;
+}
+
+/* ── Animations ────────────────────────────────────── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 480px) {
+  .tabla-header,
+  .tabla-fila {
+    grid-template-columns: 56px 1fr 88px;
+    padding: 0.85rem 1rem;
+  }
+
+  .nombre-texto  { font-size: 0.92rem; }
+  .puntaje-texto { font-size: 1rem; }
+  .medalla       { font-size: 1.25rem; }
+  .titulo        { letter-spacing: 0.1em; }
+}

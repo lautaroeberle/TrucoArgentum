@@ -5,14 +5,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: `<router-outlet />`,
+  styles: [`:host { display: block; }`]
 })
-export class AppComponent {
-  title = 'TrucoArgentum';
-  trackClick() {
-  if ((window as any).fbq) {
-    (window as any).fbq('track', 'Lead');
-  }
-}
-}
+export class AppComponent {}
