@@ -9,8 +9,6 @@ export interface Jugador {
   puntaje: number;
 }
 
-const STORAGE_KEY = 'truco_ranking';
-
 @Injectable({ providedIn: 'root' })
 export class RankingService {
   private jugadoresSubject = new BehaviorSubject<Jugador[]>([]);
@@ -18,19 +16,9 @@ export class RankingService {
 
   constructor(private http: HttpClient) {}
 
-  /** Carga inicial: LocalStorage → JSON */
+  /** SIEMPRE carga desde JSON */
   cargarDatos(): void {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const data: Jugador[] = JSON.parse(stored);
-        this.jugadoresSubject.next(this.ordenar(data));
-        return;
-      } catch {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-    }
-    this.http.get<Jugador[]>('assets/ranking.json').pipe(
+    this.http.get<Jugador[]>('../assets/ranking.json').pipe(
       tap(data => {
         this.jugadoresSubject.next(this.ordenar(data));
       })
@@ -41,14 +29,11 @@ export class RankingService {
     return [...lista].sort((a, b) => b.puntaje - a.puntaje);
   }
 
-  private guardarEnStorage(lista: Jugador[]): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
-    this.jugadoresSubject.next(this.ordenar(lista));
-  }
-
   obtenerJugadores(): Jugador[] {
     return this.jugadoresSubject.getValue();
   }
+
+  /** ── CRUD EN MEMORIA (NO persistente) ── */
 
   agregarJugador(nombre: string, puntaje: number): void {
     const lista = this.obtenerJugadores();
@@ -57,39 +42,52 @@ export class RankingService {
       nombre: nombre.trim(),
       puntaje
     };
-    this.guardarEnStorage([...lista, nuevo]);
+    this.jugadoresSubject.next(this.ordenar([...lista, nuevo]));
   }
 
   editarPuntaje(id: string, nuevoPuntaje: number): void {
     const lista = this.obtenerJugadores().map(j =>
       j.id === id ? { ...j, puntaje: nuevoPuntaje } : j
     );
-    this.guardarEnStorage(lista);
+    this.jugadoresSubject.next(this.ordenar(lista));
   }
 
   sumarPuntos(id: string, puntos: number): void {
     const lista = this.obtenerJugadores().map(j =>
       j.id === id ? { ...j, puntaje: j.puntaje + puntos } : j
     );
-    this.guardarEnStorage(lista);
+    this.jugadoresSubject.next(this.ordenar(lista));
   }
 
   restarPuntos(id: string, puntos: number): void {
     const lista = this.obtenerJugadores().map(j =>
       j.id === id ? { ...j, puntaje: Math.max(0, j.puntaje - puntos) } : j
     );
-    this.guardarEnStorage(lista);
+    this.jugadoresSubject.next(this.ordenar(lista));
   }
 
   eliminarJugador(id: string): void {
     const lista = this.obtenerJugadores().filter(j => j.id !== id);
-    this.guardarEnStorage(lista);
+    this.jugadoresSubject.next(this.ordenar(lista));
   }
 
+  /** RESET = volver a cargar JSON */
   resetearAJson(): void {
-    localStorage.removeItem(STORAGE_KEY);
-    this.http.get<Jugador[]>('assets/ranking.json').pipe(
-      tap(data => this.jugadoresSubject.next(this.ordenar(data)))
-    ).subscribe();
+    this.cargarDatos();
+  }
+
+  /** 🔥 EXPORTAR JSON */
+  exportarJSON(): void {
+    const data = this.obtenerJugadores();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: 'application/json'
+    });
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ranking.json';
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }
