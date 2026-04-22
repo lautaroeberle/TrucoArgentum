@@ -1,7 +1,20 @@
 [
-  { "id": "1", "nombre": "El Flaco Gómez", "puntaje": 1450 },
-  { "id": "2", "nombre": "La Negra Torres", "puntaje": 1320 },
-  { "id": "3", "nombre": "Pancho El Truquero", "puntaje": 1280 },
-  { "id": "4", "nombre": "Marta Fierro", "puntaje": 1100 },
-  { "id": "5", "nombre": "El Tano Braconi", "puntaje": 980 }
+  {"id":"1","nombre":"Lau","puntaje":109},
+  {"id":"2","nombre":"Santy","puntaje":104},
+  {"id":"3","nombre":"Luis Carrizo💯","puntaje":94},
+  {"id":"4","nombre":"~~Lichuu","puntaje":66},
+  {"id":"5","nombre":"~Juann","puntaje":18},
+  {"id":"6","nombre":"Mateo","puntaje":14},
+  {"id":"7","nombre":"~joaco","puntaje":14},
+  {"id":"8","nombre":"Acevedo","puntaje":13},
+  {"id":"9","nombre":"~CBraianj","puntaje":11},
+  {"id":"10","nombre":"~kevin","puntaje":7},
+  {"id":"11","nombre":"~Luca","puntaje":7},
+  {"id":"12","nombre":"~Duncan Tisera","puntaje":5},
+  {"id":"13","nombre":"Ubaldino","puntaje":4},
+  {"id":"14","nombre":"~Bauti","puntaje":2},
+  {"id":"15","nombre":"~~bautiii⚽️","puntaje":2},
+  {"id":"16","nombre":"+54 9 2226 52-1096","puntaje":2},
+  {"id":"17","nombre":"Ramiro","puntaje":1},
+  {"id":"18","nombre":"~Jonas Y Roma 👑 😍","puntaje":1}
 ]
