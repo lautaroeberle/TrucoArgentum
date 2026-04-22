@@ -53,24 +53,31 @@
     </div>
 
     <!-- Lista resto -->
-    <div class="lista" *ngIf="jugadores.length > 3">
-      <div
-        *ngFor="let j of jugadores | slice:3; let i = index"
-        class="lista-fila"
-        [style.animation-delay]="(i * 0.06 + 0.4) + 's'"
-      >
-        <span class="lista-pos">{{ i + 4 }}°</span>
-        <span class="lista-nombre">{{ j.nombre }}</span>
-        <span class="lista-bar-wrap">
-          <span
-            class="lista-bar"
-            [style.width]="(j.puntaje / jugadores[0].puntaje * 100) + '%'"
-          ></span>
-        </span>
-        <span class="lista-pts">{{ j.puntaje | number }}</span>
-      </div>
+   <div class="lista" *ngIf="jugadores.length > 3">
+  <ng-container *ngFor="let j of jugadores | slice:3; let i = index">
+
+    <!-- 🔥 Mensaje después del puesto 8 -->
+    <div *ngIf="i === 5" class="clasificacion-msg">
+      ⬆️ CLASIFICAN AL TORNEO GRATUITO
     </div>
 
+    <div
+      class="lista-fila"
+      [style.animation-delay]="(i * 0.06 + 0.4) + 's'"
+    >
+      <span class="lista-pos">{{ i + 4 }}°</span>
+      <span class="lista-nombre">{{ j.nombre }}</span>
+      <span class="lista-bar-wrap">
+        <span
+          class="lista-bar"
+          [style.width]="(j.puntaje / jugadores[0].puntaje * 100) + '%'"
+        ></span>
+      </span>
+      <span class="lista-pts">{{ j.puntaje | number }}</span>
+    </div>
+
+  </ng-container>
+</div>
     <!-- Empty state -->
     <div class="empty" *ngIf="jugadores.length === 0">
       <span class="empty-icon">🃏</span>
