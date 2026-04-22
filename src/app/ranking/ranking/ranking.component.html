@@ -1,39 +1,88 @@
-<div class="page-wrapper">
+<div class="rk-page">
 
-  <header class="header">
-    <div class="suit-row">♠ ♥ ♦ ♣</div>
-    <h1 class="titulo">TRUCO ARGENTUM</h1>
-    <p class="subtitulo">— Ranking de Campeones —</p>
+  <!-- ══ HERO HEADER ══════════════════════════════════════════ -->
+  <header class="rk-hero">
+    <div class="hero-banda"></div>
+    <div class="hero-inner">
+      <div class="hero-suits">♠ ♥ ♦ ♣</div>
+      <h1 class="hero-titulo">Truco <em>Argentum</em></h1>
+      <p class="hero-sub">Ranking Oficial de Campeones · Temporada 2025</p>
+    </div>
+    <div class="hero-banda"></div>
   </header>
 
-  <main class="tabla-container">
+  <!-- ══ RANKING CARDS ════════════════════════════════════════ -->
+  <main class="rk-main">
 
-    <div class="tabla-header">
-      <span class="col-pos">POS</span>
-      <span class="col-nombre">JUGADOR</span>
-      <span class="col-pts">PUNTOS</span>
+    <!-- Podio top-3 -->
+    <div class="podio" *ngIf="jugadores.length >= 1">
+
+      <!-- 2do (se muestra primero a la izquierda) -->
+      <div class="podio-card plata" *ngIf="jugadores[1]" style="animation-delay:.15s">
+        <div class="podio-medal">🥈</div>
+        <div class="podio-pos">2°</div>
+        <div class="podio-nombre">{{ jugadores[1].nombre }}</div>
+        <div class="podio-pts">{{ jugadores[1].puntaje | number }}</div>
+        <div class="podio-label">pts</div>
+      </div>
+
+      <!-- 1ero (centro, elevado) -->
+      <div class="podio-card oro star" style="animation-delay:0s">
+        <div class="podio-corona">👑</div>
+        <div class="podio-medal">🥇</div>
+        <div class="podio-pos">1°</div>
+        <div class="podio-nombre">{{ jugadores[0].nombre }}</div>
+        <div class="podio-pts">{{ jugadores[0].puntaje | number }}</div>
+        <div class="podio-label">pts</div>
+      </div>
+
+      <!-- 3ero (derecha) -->
+      <div class="podio-card bronce" *ngIf="jugadores[2]" style="animation-delay:.3s">
+        <div class="podio-medal">🥉</div>
+        <div class="podio-pos">3°</div>
+        <div class="podio-nombre">{{ jugadores[2].nombre }}</div>
+        <div class="podio-pts">{{ jugadores[2].puntaje | number }}</div>
+        <div class="podio-label">pts</div>
+      </div>
+
     </div>
 
-    <div
-      *ngFor="let jugador of jugadores; let i = index"
-      class="tabla-fila"
-      [ngClass]="getRowClass(i + 1)"
-    >
-      <span class="col-pos medalla">{{ getMedalla(i + 1) }}</span>
-      <span class="col-nombre nombre-texto">{{ jugador.nombre }}</span>
-      <span class="col-pts puntaje-texto">{{ jugador.puntaje | number }}</span>
+    <!-- Separador -->
+    <div class="separador" *ngIf="jugadores.length > 3">
+      <span>— Resto del ranking —</span>
     </div>
 
-    <div *ngIf="jugadores.length === 0" class="empty-state">
+    <!-- Lista resto -->
+    <div class="lista" *ngIf="jugadores.length > 3">
+      <div
+        *ngFor="let j of jugadores | slice:3; let i = index"
+        class="lista-fila"
+        [style.animation-delay]="(i * 0.06 + 0.4) + 's'"
+      >
+        <span class="lista-pos">{{ i + 4 }}°</span>
+        <span class="lista-nombre">{{ j.nombre }}</span>
+        <span class="lista-bar-wrap">
+          <span
+            class="lista-bar"
+            [style.width]="(j.puntaje / jugadores[0].puntaje * 100) + '%'"
+          ></span>
+        </span>
+        <span class="lista-pts">{{ j.puntaje | number }}</span>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty" *ngIf="jugadores.length === 0">
       <span class="empty-icon">🃏</span>
-      <span>No hay jugadores en el ranking todavía.</span>
+      <p>No hay jugadores en el ranking todavía.</p>
     </div>
 
   </main>
 
-  <footer class="footer">
-    <p>Ranking actualizado en tiempo real · ¡Que gane el mejor!</p>
-    <div class="suit-row small">♠ ♥ ♦ ♣</div>
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="rk-footer">
+    <span class="footer-suits">♠ ♥ ♦ ♣</span>
+    <p>Truco Argentum · Ranking actualizado en tiempo real</p>
   </footer>
 
 </div>
